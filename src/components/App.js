@@ -1,17 +1,23 @@
+import React, { useState } from 'react'
 import video from "../data/video.js";
+import VideoPlayer from './VideoPlayer';
+import Comments from './Comments';
+import ToggleCommentsButton from './ToggleCommentsButton';
 
 function App() {
-  console.log("Here's your data:", video);
+  const [commentsVisible, setCommentsVisible] = useState(true);
+
+  const toggleCommentsVisibility = () => {
+    setCommentsVisible(!commentsVisible)
+  }
 
   return (
     <div className="App">
-      <iframe
-        width="919"
-        height="525"
-        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-        frameBorder="0"
-        allowFullScreen
-        title="Thinking in React"
+      <VideoPlayer video={video }/>
+      {commentsVisible && <Comments comments={video.comments} />}
+      <ToggleCommentsButton
+        commentsVisible={commentsVisible}
+        toggleCommentsVisibility={toggleCommentsVisibility}
       />
     </div>
   );
